@@ -1,0 +1,57 @@
+@model IEnumerable<TravelBookingSystemMVC.Models.FlightOffer>
+
+@functions {
+    public string FormatDuration(string isoDuration)
+    {
+        if (string.IsNullOrEmpty(isoDuration))
+        {
+            return string.Empty;
+        }
+
+        var duration = System.Xml.XmlConvert.ToTimeSpan(isoDuration);
+        var formattedDuration = string.Empty;
+
+        if (duration.Hours > 0)
+        {
+            formattedDuration += $"{duration.Hours} hr(s) ";
+        }
+
+        if (duration.Minutes > 0)
+        {
+            formattedDuration += $"{duration.Minutes} min(s)";
+        }
+
+        return formattedDuration.Trim();
+    }
+}
+
+<h2>Flight Information</h2>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Flight Number</th>
+            <th>Departure Time</th>
+            <th>Arrival Time</th>
+            <th>Flight Time</th>
+            <th>Class</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var flight in Model)
+        {
+            <tr>
+                <td>@flight.Origin</td>
+                <td>@flight.Destination</td>
+                <td>@flight.Itineraries[0].Segments[0].CarrierCode + @flight.Itineraries[0].Segments[0].Number</td>
+                <td>@flight.FirstSegmentDepartureAt</td>
+                <td>@flight.Itineraries[0].Segments[0].Arrival.At</td>
+                <td>@FormatDuration(flight.Itineraries[0].Duration)</td>
+                <td>@flight.TravelerPricings[0].FareDetailsBySegment[0].Cabin</td>
+                <td>@flight.TravelerPricings[0].Price.Total</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+@functions {
+    public string FormatDuration(string isoDuration)
+    {
+        if (string.IsNullOrEmpty(isoDuration))
+        {
+            return string.Empty;
+        }
+
+        var duration = System.Xml.XmlConvert.ToTimeSpan(isoDuration);
+        var formattedDuration = string.Empty;
+
+        if (duration.Hours > 0)
+        {
+            formattedDuration += $"{duration.Hours} hr(s) ";
+        }
+
+        if (duration.Minutes > 0)
+        {
+            formattedDuration += $"{duration.Minutes} min(s)";
+        }
+
+        return formattedDuration.Trim();
+    }
+}
+
+@if (ViewBag?.Results != null)
+{
+    <h2>Flight Information</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Flight Number</th>
+                <th>Departure Time</th>
+                <th>Arrival Time</th>
+                <th>Flight Time</th>
+                <th>Class</th>
+                <th>Price</th>
+                <th>Seats Remaining</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var flight in ViewBag.Results)
+            {
+                <tr>
+                    <td>@flight.FlightNumber</td>
+                    <td>@flight.DepartureTime</td>
+                    <td>@flight.ArrivalTime</td>
+                    <td>@FormatDuration(flight.FlightDuration)</td>
+                    <td>@flight.CabinClass</td>
+                    <td>@flight.TotalPrice</td>
+                    <td>@flight.NumberOfBookableSeats</td>
+                    <td><button>Select</button></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No flight information available.</p>
+}

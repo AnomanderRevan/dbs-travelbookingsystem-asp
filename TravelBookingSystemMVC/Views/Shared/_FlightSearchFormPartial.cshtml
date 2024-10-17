@@ -1,0 +1,54 @@
+@model TravelBookingSystemMVC.Models.FlightSearchViewModel
+
+<h2>Search Flights</h2>
+
+
+<form asp-action="Index" method="post">
+    <div class="form-group">
+        <label asp-for="Origin"></label>
+        <select asp-for="Origin" class="form-control">
+            <option value="DUB">Dublin</option>
+            <option value="ORK">Cork</option>
+            <option value="BFS">Belfast</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="Destination"></label>
+        <select asp-for="Destination" class="form-control">
+            <option value="LON">London</option>
+            <option value="PAR">Paris</option>
+            <option value="NYC">New York</option>
+            <option value="MON">Montreal</option>
+            <option value="MCO">Orlando</option>
+            <option value="PRG">Prague</option>
+            <option value="MAD">Madrid</option>
+            <option value="ROM">Rome</option>
+            <option value="EDI">Edinburgh</option>
+        </select>
+    </div>
+    <div class="form-group">
+        <label asp-for="DepartureDate"></label>
+        <input asp-for="DepartureDate" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="ReturnDate"></label>
+        <input asp-for="ReturnDate" type="date" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Adults"></label>
+        <input asp-for="Adults" type="number" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="Children"></label>
+        <input asp-for="Children" type="number" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label asp-for="CabinClass"></label>
+        <select asp-for="CabinClass" class="form-control">
+            <option value="ECONOMY">Economy</option>
+            <option value="BUSINESS">Business</option>
+            <option value="FIRST">First</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
